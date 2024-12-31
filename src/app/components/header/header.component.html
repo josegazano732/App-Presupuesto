@@ -1,0 +1,31 @@
+<header class="header">
+  <div class="header-content">
+    <div class="logo-section">
+      <img [src]="companyInfo.logoUrl" [alt]="companyInfo.name" class="company-logo">
+      <!-- 
+      <div class="company-name">
+        <h1>{{companyInfo.name}}</h1>
+        <div class="company-subtitle">Sistema de Presupuestos</div>
+      </div>
+      -->
+    </div>
+    
+    <div class="company-info">
+      <div class="info-item">
+        <i class="bi bi-geo-alt"></i>
+        <span>{{companyInfo.address}}</span>
+      </div>
+      <div class="info-item">
+        <i class="bi bi-telephone"></i>
+        <span>{{companyInfo.phone}}</span>
+      </div>
+      <div class="info-item">
+        <i class="bi bi-envelope"></i>
+        <span>{{companyInfo.email}}</span>
+      </div>
+      <div class="date-display">
+        {{currentDate}}
+      </div>
+    </div>
+  </div>
+</header>

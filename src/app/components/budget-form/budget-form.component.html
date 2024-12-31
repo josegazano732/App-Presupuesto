@@ -1,0 +1,248 @@
+<div class="container mb-5">
+  <div id="budget-content" class="content-wrapper">
+    <app-client-info [client]="budget.client"></app-client-info>
+
+    <!-- Labor Costs -->
+    <h4>COSTOS DE IMPLANTACIÓN - MANO DE OBRA</h4>
+    
+    <!-- Mobile View -->
+    <div class="mobile-view">
+      <div *ngFor="let item of budget.laborCosts; let i = index" class="budget-item-card">
+        <div class="form-group">
+          <label>Trabajo</label>
+          <input type="text" class="form-control" [(ngModel)]="item.task">
+        </div>
+        <div class="form-group">
+          <label>Días</label>
+          <input type="number" class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)">
+        </div>
+        <div class="form-group">
+          <label>Precio por día</label>
+          <input type="number" class="form-control" [ngModel]="item.ratePerDay" (ngModelChange)="updateLaborCostRate(i, $event)">
+        </div>
+        <div class="total-value">
+          Total: {{formatCurrency(item.total)}}
+        </div>
+        <button class="btn btn-danger w-100 mt-2" (click)="removeLaborCost(i)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </div>
+      <button class="btn btn-primary mb-4" (click)="addLaborCost()">
+        <i class="bi bi-plus"></i> Agregar Mano de Obra
+      </button>
+    </div>
+
+    <!-- Desktop View -->
+    <div class="desktop-view table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>TRABAJOS</th>
+            <th>DÍAS</th>
+            <th>$/DÍA</th>
+            <th>TOTAL</th>
+            <th>ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of budget.laborCosts; let i = index">
+            <td><input type="text" class="form-control" [(ngModel)]="item.task"></td>
+            <td><input type="number" class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)"></td>
+            <td><input type="number" class="form-control" [ngModel]="item.ratePerDay" (ngModelChange)="updateLaborCostRate(i, $event)"></td>
+            <td>{{formatCurrency(item.total)}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="removeLaborCost(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-end">Total:</td>
+            <td colspan="2">{{formatCurrency(budget.totalLaborCost)}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button class="btn btn-primary mb-4" (click)="addLaborCost()">
+        <i class="bi bi-plus"></i> Agregar Mano de Obra
+      </button>
+    </div>
+
+    <!-- Machinery Section -->
+    <h4>MAQUINARIAS Y LUBRICANTES TRABAJOS</h4>
+    
+    <!-- Mobile View -->
+    <div class="mobile-view">
+      <div *ngFor="let item of budget.machineryWorks; let i = index" class="budget-item-card">
+        <div class="form-group">
+          <label>Trabajo</label>
+          <input type="text" class="form-control" [(ngModel)]="item.task">
+        </div>
+        <div class="form-group">
+          <label>Horas</label>
+          <input type="number" class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)">
+        </div>
+        <div class="form-group">
+          <label>Precio por hora</label>
+          <input type="number" class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)">
+        </div>
+        <div class="total-value">
+          Total: {{formatCurrency(item.total)}}
+        </div>
+        <button class="btn btn-danger w-100 mt-2" (click)="removeMachineryWork(i)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </div>
+      <button class="btn btn-primary mb-4" (click)="addMachineryWork()">
+        <i class="bi bi-plus"></i> Agregar Maquinaria
+      </button>
+    </div>
+
+    <!-- Desktop View -->
+    <div class="desktop-view table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>TRABAJOS</th>
+            <th>HORAS</th>
+            <th>$/HORA</th>
+            <th>TOTAL</th>
+            <th>ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of budget.machineryWorks; let i = index">
+            <td><input type="text" class="form-control" [(ngModel)]="item.task"></td>
+            <td><input type="number" class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)"></td>
+            <td><input type="number" class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)"></td>
+            <td>{{formatCurrency(item.total)}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="removeMachineryWork(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-end">Total:</td>
+            <td colspan="2">{{formatCurrency(budget.totalMachineryCost)}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button class="btn btn-primary mb-4" (click)="addMachineryWork()">
+        <i class="bi bi-plus"></i> Agregar Maquinaria
+      </button>
+    </div>
+
+    <!-- Seedlings Section -->
+    <h4>PLANTINES</h4>
+    
+    <!-- Mobile View -->
+    <div class="mobile-view">
+      <div *ngFor="let item of budget.seedlings; let i = index" class="budget-item-card">
+        <div class="form-group">
+          <label>Tipo</label>
+          <input type="text" class="form-control" [(ngModel)]="item.type">
+        </div>
+        <div class="form-group">
+          <label>Plantas/Ha</label>
+          <input type="number" class="form-control" [(ngModel)]="item.plantsPerHectare">
+        </div>
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)">
+        </div>
+        <div class="form-group">
+          <label>Precio por unidad</label>
+          <input type="number" class="form-control" [(ngModel)]="item.pricePerUnit" (change)="updateSeedling(i)">
+        </div>
+        <div class="total-value">
+          Total: {{formatCurrency(item.total)}}
+        </div>
+        <button class="btn btn-danger w-100 mt-2" (click)="removeSeedling(i)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </div>
+      <button class="btn btn-primary mb-4" (click)="addSeedling()">
+        <i class="bi bi-plus"></i> Agregar Plantín
+      </button>
+    </div>
+
+    <!-- Desktop View -->
+    <div class="desktop-view table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>TIPO</th>
+            <th>PLANTAS/HA</th>
+            <th>CANTIDAD</th>
+            <th>$/UNIDAD</th>
+            <th>TOTAL</th>
+            <th>ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of budget.seedlings; let i = index">
+            <td><input type="text" class="form-control" [(ngModel)]="item.type"></td>
+            <td><input type="number" class="form-control" [(ngModel)]="item.plantsPerHectare"></td>
+            <td><input type="number" class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)"></td>
+            <td><input type="number" class="form-control" [(ngModel)]="item.pricePerUnit" (change)="updateSeedling(i)"></td>
+            <td>{{formatCurrency(item.total)}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="removeSeedling(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-end">Total:</td>
+            <td colspan="2">{{formatCurrency(budget.totalSeedlingsCost)}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button class="btn btn-primary mb-4" (click)="addSeedling()">
+        <i class="bi bi-plus"></i> Agregar Plantín
+      </button>
+    </div>
+
+    <!-- Observations -->
+    <div class="mb-4">
+      <h4>OBSERVACIONES</h4>
+      <textarea 
+        class="form-control" 
+        rows="4" 
+        [(ngModel)]="budget.observations"
+        placeholder="Ingrese observaciones adicionales...">
+      </textarea>
+    </div>
+
+    <!-- Totals Summary -->
+    <div class="totals-summary">
+      <div class="totals-grid">
+        <div class="total-item">
+          <h5>Costo por Hectárea</h5>
+          <p class="h4">{{formatCurrency(budget.totalCostPerHectare)}}</p>
+        </div>
+        <div class="total-item">
+          <h5>Total Plantines</h5>
+          <p class="h4">{{formatCurrency(budget.totalSeedlingsCost)}}</p>
+        </div>
+        <div class="total-item">
+          <h5>Total General</h5>
+          <p class="h4">{{formatCurrency(budget.grandTotal)}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="btn btn-primary" (click)="downloadPDF()">
+      <i class="bi bi-download"></i> Descargar PDF
+    </button>
+  </div>
+</div>

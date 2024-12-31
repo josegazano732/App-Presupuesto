@@ -1,0 +1,38 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col, .col-2, .col-auto {
+    width: 100%;
+  }
+
+  .form-control {
+    width: 100%;
+    font-size: 16px;
+    padding: 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}

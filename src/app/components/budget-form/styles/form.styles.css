@@ -1,0 +1,28 @@
+/* Form control styles */
+.form-control {
+  font-size: 0.9rem;
+  padding: 0.35rem;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.btn {
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  width: 100%;
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.35rem;
+  }
+  
+  .btn:not(.fab-button) {
+    padding: 0.35rem;
+    margin: 0.15rem 0;
+  }
+}

@@ -1,0 +1,40 @@
+<div class="row g-2 mb-2 align-items-center">
+  <div class="col">
+    <input 
+      [(ngModel)]="item.descripcion"
+      placeholder="Descripción"
+      class="form-control"
+    >
+  </div>
+  <div class="col-2">
+    <input 
+      type="number" 
+      [(ngModel)]="item.cantidad"
+      placeholder="Cantidad"
+      class="form-control"
+      (change)="actualizar.emit()"
+    >
+  </div>
+  <div class="col-2">
+    <input 
+      type="number" 
+      [(ngModel)]="item.precioUnitario"
+      placeholder="Precio"
+      class="form-control"
+      (change)="actualizar.emit()"
+    >
+  </div>
+  <div class="col-2">
+    <span class="form-control bg-light">
+      {{item.total | number:'1.2-2'}}
+    </span>
+  </div>
+  <div class="col-auto">
+    <button 
+      (click)="eliminar.emit()"
+      class="btn btn-danger"
+    >
+      Eliminar
+    </button>
+  </div>
+</div>

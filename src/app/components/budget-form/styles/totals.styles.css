@@ -1,0 +1,31 @@
+/* Totals section styles */
+.totals-summary {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 0.75rem;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  margin-top: 0.5rem;
+}
+
+.totals-summary .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.totals-summary .col-md-4 {
+  flex: 1;
+  min-width: 250px;
+}
+
+@media (max-width: 768px) {
+  .totals-summary {
+    padding: 0.5rem;
+  }
+  
+  .totals-summary .col-md-4 {
+    flex: 0 0 100%;
+    text-align: center;
+  }
+}

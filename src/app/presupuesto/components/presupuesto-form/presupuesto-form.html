@@ -1,0 +1,76 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Nuevo Presupuesto</h2>
+  
+  <div class="mb-4">
+    <label class="block mb-2">Cliente:</label>
+    <input 
+      type="text" 
+      [(ngModel)]="presupuesto.cliente"
+      class="form-control"
+    >
+  </div>
+
+  <div class="mb-4">
+    <h3 class="text-xl mb-2">Ítems</h3>
+    <div *ngFor="let item of presupuesto.items; let i = index" class="mb-2">
+      <div class="row">
+        <div class="col">
+          <input 
+            [(ngModel)]="item.descripcion"
+            placeholder="Descripción"
+            class="form-control"
+          >
+        </div>
+        <div class="col-2">
+          <input 
+            type="number" 
+            [(ngModel)]="item.cantidad"
+            placeholder="Cantidad"
+            class="form-control"
+            (change)="calcularTotal(i)"
+          >
+        </div>
+        <div class="col-2">
+          <input 
+            type="number" 
+            [(ngModel)]="item.precioUnitario"
+            placeholder="Precio"
+            class="form-control"
+            (change)="calcularTotal(i)"
+          >
+        </div>
+        <div class="col-2">
+          <span class="form-control bg-light">
+            {{item.total | number:'1.2-2'}}
+          </span>
+        </div>
+        <div class="col-auto">
+          <button 
+            (click)="eliminarItem(i)"
+            class="btn btn-danger"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <button 
+      (click)="agregarItem()"
+      class="btn btn-primary mt-2"
+    >
+      Agregar Ítem
+    </button>
+  </div>
+
+  <div class="text-end mb-3">
+    <p class="h4">Total: {{presupuesto.total | number:'1.2-2'}}</p>
+  </div>
+
+  <button 
+    (click)="guardarPresupuesto()"
+    class="btn btn-success"
+  >
+    Guardar Presupuesto
+  </button>
+</div>
