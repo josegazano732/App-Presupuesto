@@ -1,7 +1,7 @@
 /* Base Layout */
 .content-wrapper {
   padding: 1rem;
-  background: white;
+  background: rgba(7, 7, 7, 0.055);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-bottom: 120px;
@@ -40,7 +40,7 @@
 
 /* Card Styles for Mobile */
 .budget-item-card {
-  background: rgba(133, 131, 131, 0.219);
+  background: rgba(235, 233, 233, 0.062);
   border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 1rem;
@@ -80,8 +80,8 @@
 }
 
 .totals-grid {
-  display: inline-flex;
-  justify-content: space-between;
+  display: flex;
+  justify-content: space-around;
 }
 /* Ver esta seccion*/
 .total-item {
@@ -93,11 +93,11 @@
 .total-item h6 {
   margin: 0;
   color: #666;
-  font-size: 0.875rem;
+  font-size: 0.600rem;
 }
 /* Ver esta seccion*/
 .total-item .h6{
-  margin: 1rem 4 0;
+  margin: 0.5rem 4 0;
   padding: 0.1rem;
   color: var(--primary-color);
 }
@@ -127,7 +127,7 @@
   }
   
   .form-control {
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 15px; /* Prevents zoom on iOS */
   }
   
   .totals-grid {
@@ -136,15 +136,15 @@
   
   /* Ver como ubicar el boton aqui */
   .action-buttons {
-    height: 1rem;
-    bottom: 0.9rem;
-    left: 10rem;
-    right: 0%;
+    height: auto;
+    bottom: 5.5rem;
+    left: 18rem;
+    right: 0rem;
     
   }
   
   .action-buttons .btn {
-    width: 50%;
+    width: 75%;
   }
 }
 
