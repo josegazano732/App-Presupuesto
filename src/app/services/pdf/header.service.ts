@@ -9,7 +9,7 @@ import { formatDate } from '../../shared/utils/formatters.util';
 })
 export class PdfHeaderService {
   private readonly MARGIN = 15;
-  private readonly LOGO_WIDTH = 40;
+  private readonly LOGO_WIDTH = 45;
   private readonly LOGO_HEIGHT = 30;
   private readonly TEXT_START_X = 70;
 
@@ -45,9 +45,9 @@ export class PdfHeaderService {
 
     pdf.setFontSize(10);
     pdf.setFont('helvetica', 'normal');
-    pdf.text(companyInfo.address, this.TEXT_START_X, startY + 17);
-    pdf.text(companyInfo.phone, this.TEXT_START_X, startY + 22);
-    pdf.text(companyInfo.email, this.TEXT_START_X, startY + 27);
+    pdf.text(companyInfo.address, this.TEXT_START_X + 10, startY + 17);
+    pdf.text(companyInfo.phone, this.TEXT_START_X + 10, startY + 22);
+    pdf.text(companyInfo.email, this.TEXT_START_X + 10, startY + 27);
 
     // Date - aligned to the right
     pdf.setFont('helvetica', 'italic');

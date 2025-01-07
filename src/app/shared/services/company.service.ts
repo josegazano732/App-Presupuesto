@@ -7,9 +7,9 @@ import { CompanyInfo } from '../models/company.model';
 export class CompanyService {
   getCompanyInfo(): CompanyInfo {
     return {
-      name: 'Mi Empresa',
-      address: 'Concepcion de la Sierrar',
-      phone: '3758-5455565',
+      name: '',
+      address: 'Concepcion de la Sierra',
+      phone: '3758-111111',
       email: 'pernigotti@miempresa.com',
       logoUrl: 'assets/images/logo.png'
     };
