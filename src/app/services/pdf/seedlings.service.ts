@@ -37,11 +37,11 @@ export class PdfSeedlingsService {
     const seedlingsConfig = {
       ...tableConfig,
       columnStyles: {
-        0: { cellWidth: 50 },
-        1: { cellWidth: 30, halign: 'right' },
-        2: { cellWidth: 30, halign: 'right' },
-        3: { cellWidth: 30, halign: 'right' },
-        4: { cellWidth: 40, halign: 'right' }
+        0: { cellWidth: 40 },
+        1: { cellWidth: 35, halign: 'center' },
+        2: { cellWidth: 30, halign: 'center' },
+        3: { cellWidth: 30, halign: 'center' },
+        4: { cellWidth: 40, halign: 'center' }
       }
     };
 
