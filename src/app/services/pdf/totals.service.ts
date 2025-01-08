@@ -35,9 +35,13 @@ export class PdfTotalsService {
     pdf.setFont('helvetica', 'normal');
     
     currentY += 7;
-    pdf.text(`Costo por Hectárea: ${formatCurrency(budget.totalCostPerHectare)}`, this.MARGIN, currentY);
+    pdf.text(`Mano de Obra: ${formatCurrency(budget.totalLaborCost)}`, this.MARGIN, currentY);
+    currentY += 7;
+    pdf.text(`Maquinarias y Lubricantes: ${formatCurrency(budget.totalMachineryCost)}`, this.MARGIN, currentY);
     currentY += 7;
     pdf.text(`Total Plantines: ${formatCurrency(budget.totalSeedlingsCost)}`, this.MARGIN, currentY);
+    currentY += 7;
+    pdf.text(`Costo por Hectárea: ${formatCurrency(budget.totalCostPerHectare)}`, this.MARGIN, currentY);
     currentY += 7;
     pdf.text(`TOTAL GENERAL: ${formatCurrency(budget.grandTotal)}`, this.MARGIN, currentY);
   }

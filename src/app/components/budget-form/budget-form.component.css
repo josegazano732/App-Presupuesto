@@ -85,7 +85,7 @@
 }
 /* Ver esta seccion*/
 .total-item {
-  margin: 15px;
+  margin: 1px;
   padding: 0rem;
   text-align: center;
 }
@@ -98,7 +98,7 @@
 /* Ver esta seccion*/
 .total-item .h6{
   margin: 0.5rem 4 0;
-  padding: 0.1rem;
+  padding: 0rem;
   color: var(--primary-color);
 }
 
@@ -115,6 +115,7 @@
   .mobile-view {
     display: block;
   }
+
   
   .desktop-view {
     display: none;
@@ -131,7 +132,8 @@
   }
   
   .totals-grid {
-    grid-template-columns: 1fr;
+    flex-wrap: wrap;  /* footer movil */
+    margin: 0.25rem;
   }
   
   /* Ver como ubicar el boton aqui */
@@ -145,6 +147,7 @@
   
   .action-buttons .btn {
     width: 75%;
+    margin-bottom: 3rem;
   }
 }
 
@@ -161,6 +164,7 @@
   
   .form-control {
     transition: border-color 0.15s ease-in-out;
+    margin-bottom: 10px;
   }
   
   .form-control:focus {
