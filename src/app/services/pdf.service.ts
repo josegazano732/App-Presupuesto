@@ -69,22 +69,59 @@ export class PdfService {
       compress: true
     });
 
+    // Constantes para márgenes y dimensiones
+  const PAGE_HEIGHT = pdf.internal.pageSize.height;
+  const PAGE_WIDTH = pdf.internal.pageSize.width;
+  const MARGIN_TOP = 10;
+  const MARGIN_BOTTOM = 10;
+  const CONTENT_HEIGHT = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM;
+
     // Set text color for headers to match theme
     pdf.setTextColor(this.PRIMARY_COLOR[0], this.PRIMARY_COLOR[1], this.PRIMARY_COLOR[2]);
 
     let yPosition = this.MARGIN_TOP;
 
-    // Add content with proper spacing
-    yPosition = await this.headerService.addHeader(pdf);
-    yPosition = this.clientInfoService.addClientInfo(pdf, budget.client, yPosition);
-    yPosition = await this.laborCostsService.addLaborCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
-    yPosition = await this.machineryCostsService.addMachineryCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
-    yPosition = await this.seedlingsService.addSeedlingsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
-    
-    this.totalsService.addTotals(pdf, budget, yPosition);
-    this.footerService.addFooter(pdf);
+     // Helper para manejar saltos de página
+  const checkPageOverflow = (height: number) => {
+    if (yPosition + height > CONTENT_HEIGHT) {
+      pdf.addPage();
+      yPosition = MARGIN_TOP;
+    }
+  };
 
-    // Save the PDF
-    pdf.save(`${fileName}.pdf`);
-  }
+   // Añadir encabezado
+  yPosition = await this.headerService.addHeader(pdf);
+
+  // Información del cliente
+  const clientInfoHeight = 30; // Aproximación del espacio utilizado
+  checkPageOverflow(clientInfoHeight);
+  yPosition = this.clientInfoService.addClientInfo(pdf, budget.client, yPosition);
+
+  // Tabla de costos laborales
+  const laborCostsHeight = 20; // Aproximar el alto de la tabla
+  checkPageOverflow(laborCostsHeight);
+  yPosition = await this.laborCostsService.addLaborCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
+
+  // Tabla de costos de maquinaria
+  const machineryCostsHeight = 20;
+  checkPageOverflow(machineryCostsHeight);
+  yPosition = await this.machineryCostsService.addMachineryCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
+
+  // Tabla de plántulas
+  const seedlingsHeight = 20;
+  checkPageOverflow(seedlingsHeight);
+  yPosition = await this.seedlingsService.addSeedlingsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
+
+  // Totales
+  const totalsHeight = 20; // Aproximación del espacio utilizado
+  checkPageOverflow(totalsHeight);
+  this.totalsService.addTotals(pdf, budget, yPosition);
+
+  // Pie de página
+  checkPageOverflow(10); // Espacio para el pie de página
+  this.footerService.addFooter(pdf);
+
+  // Guardar el PDF
+  pdf.save(`${fileName}.pdf`);
+}
 }

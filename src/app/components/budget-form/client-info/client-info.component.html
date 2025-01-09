@@ -13,13 +13,16 @@
       </div>
       <div class="form-group">
         <label class="form-label">Teléfono:</label>
-        <input type="tel" class="form-control" [(ngModel)]="client.phone"
+        <input type="tel" (input)="validarNumeros($event)"  title="Solo se permiten números" class="form-control" [(ngModel)]="client.phone"
         placeholder="Teléfono del cliente">
       </div>
       <div class="form-group">
         <label class="form-label">Email:</label>
-        <input type="email" class="form-control" [(ngModel)]="client.email"
+        <input type="email" 
+        (input)="validarCorreo()"
+        class="form-control" [(ngModel)]="client.email"
         placeholder="Email del cliente">
+        <p *ngIf="client.email && error" style="color: red;">Ingrese un correo válido.</p>
       </div>
     </div>
   </div>

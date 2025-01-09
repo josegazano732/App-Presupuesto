@@ -117,4 +117,24 @@ export class BudgetFormComponent implements OnInit {
     const fileName = `presupuesto_${this.budget.client.name}_${new Date().toISOString().split('T')[0]}`;
     await this.pdfService.generatePDF(this.budget, fileName);
   }
+
+  selectContent(event: MouseEvent): void {
+    const inputElement = event.target as HTMLInputElement;
+    inputElement.select();
+  }
+
+  // Función para mover el cursor al final del contenido al hacer doble clic
+  moveCursorToEnd(event: MouseEvent): void {
+    const inputElement = event.target as HTMLInputElement;
+    
+    // Coloca el cursor al final del contenido
+    const length = inputElement.value.length;
+    
+    // Esto mueve el cursor al final sin seleccionar nada
+    inputElement.setSelectionRange(length, length);
+
+    // Reenfocamos el campo de entrada para asegurarnos de que el cursor está donde debe
+    inputElement.focus();
+  }
+
 }
