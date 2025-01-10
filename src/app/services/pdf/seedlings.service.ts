@@ -9,10 +9,10 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfSeedlingsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 15;
+  private readonly SECTION_SPACING = 8;
 
   async addSeedlingsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
-    pdf.setFontSize(12);
+    pdf.setFontSize(12); // Tamaño de fuente
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(41, 128, 185);
     pdf.text('PLANTINES', this.MARGIN, startY);

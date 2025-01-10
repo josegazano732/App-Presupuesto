@@ -7,14 +7,14 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
   providedIn: 'root'
 })
 export class PdfTotalsService {
-  private readonly MARGIN = 15;
+  private readonly MARGIN = 15; // Margen izquierdo
 
   addTotals(pdf: jsPDF, budget: Budget, startY: number): void {
-    let currentY = startY + 10;
+    let currentY = startY + 7; // Add space before totals
 
     // Add observations first if they exist
     if (budget.observations) {
-      pdf.setFontSize(12);
+      pdf.setFontSize(10);
       pdf.setFont('helvetica', 'bold');
       pdf.text('OBSERVACIONES', this.MARGIN, currentY);
       
@@ -27,20 +27,20 @@ export class PdfTotalsService {
     }
 
     // Add cost summaries
-    pdf.setFontSize(12);
+    pdf.setFontSize(8);
     pdf.setFont('helvetica', 'bold');
     pdf.text('RESUMEN DE COSTOS', this.MARGIN, currentY);
     
-    pdf.setFontSize(10);
+    pdf.setFontSize(8);
     pdf.setFont('helvetica', 'normal');
     
-    currentY += 7;
+    currentY += 5;
     pdf.text(`Mano de Obra: ${formatCurrency(budget.totalLaborCost)}`, this.MARGIN, currentY);
-    currentY += 7;
+    currentY += 5;
     pdf.text(`Maquinarias y Lubricantes: ${formatCurrency(budget.totalMachineryCost)}`, this.MARGIN, currentY);
-    currentY += 7;
+    currentY += 5;
     pdf.text(`Total Plantines: ${formatCurrency(budget.totalSeedlingsCost)}`, this.MARGIN, currentY);
-    currentY += 7;
+    currentY += 5;
     pdf.text(`Costo por Hectárea: ${formatCurrency(budget.totalCostPerHectare)}`, this.MARGIN, currentY);
     currentY += 7;
     pdf.text(`TOTAL GENERAL: ${formatCurrency(budget.grandTotal)}`, this.MARGIN, currentY);

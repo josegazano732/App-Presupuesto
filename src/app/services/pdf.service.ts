@@ -16,27 +16,27 @@ import 'jspdf-autotable';
 })
 export class PdfService {
   // Convert RGB to array format for jsPDF
-  private readonly PRIMARY_COLOR = [97, 185, 3];
+  private readonly PRIMARY_COLOR = [10, 182, 3];
   private readonly MARGIN_TOP = 15;
   private readonly TABLE_CONFIG: PdfTableConfig = {
     headStyles: {
-      fillColor: this.PRIMARY_COLOR,
-      textColor: 255,
-      fontSize: 10,
+      fillColor: this.PRIMARY_COLOR, // Color de fondo del encabezado de cada tabla
+      textColor: 255, // color del texto encabezado de cada tabla
+      fontSize: 8, // Tamaño de fuente
       fontStyle: 'bold',
-      cellPadding: 5
+      cellPadding: 1
     },
-    bodyStyles: {
+    bodyStyles: { // Estilos para el cuerpo de la tabla
       fontSize: 9,
-      cellPadding: 5
+      cellPadding: 0.5
     },
-    alternateRowStyles: {
+    alternateRowStyles: { //  Estilos para las filas alternas
       fillColor: [245, 247, 250]
     },
-    footStyles: {
+    footStyles: { // Estilos para el pie de la tabla
       fillColor: [240, 248, 235], // Lighter shade of primary color
       fontStyle: 'bold',
-      fontSize: 10
+      fontSize: 8
     },
     margin: {
       left: 15,
@@ -45,9 +45,9 @@ export class PdfService {
     tableWidth: 180,
     columnStyles: {
       0: { cellWidth: 60 },
-      1: { cellWidth: 30, halign: 'right' },
-      2: { cellWidth: 40, halign: 'right' },
-      3: { cellWidth: 40, halign: 'right' }
+      1: { cellWidth: 30, halign: 'center' },
+      2: { cellWidth: 40, halign: 'center' },
+      3: { cellWidth: 40, halign: 'center' }
     }
   };
 
@@ -73,7 +73,7 @@ export class PdfService {
   const PAGE_HEIGHT = pdf.internal.pageSize.height;
   const PAGE_WIDTH = pdf.internal.pageSize.width;
   const MARGIN_TOP = 10;
-  const MARGIN_BOTTOM = 10;
+  const MARGIN_BOTTOM = 20;
   const CONTENT_HEIGHT = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM;
 
     // Set text color for headers to match theme
@@ -93,27 +93,27 @@ export class PdfService {
   yPosition = await this.headerService.addHeader(pdf);
 
   // Información del cliente
-  const clientInfoHeight = 30; // Aproximación del espacio utilizado
+  const clientInfoHeight = 1; // Aproximación del espacio utilizado
   checkPageOverflow(clientInfoHeight);
   yPosition = this.clientInfoService.addClientInfo(pdf, budget.client, yPosition);
 
   // Tabla de costos laborales
-  const laborCostsHeight = 20; // Aproximar el alto de la tabla
+  const laborCostsHeight = 15; // Aproximar el alto de la tabla
   checkPageOverflow(laborCostsHeight);
   yPosition = await this.laborCostsService.addLaborCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
 
   // Tabla de costos de maquinaria
-  const machineryCostsHeight = 20;
+  const machineryCostsHeight = 15;
   checkPageOverflow(machineryCostsHeight);
   yPosition = await this.machineryCostsService.addMachineryCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
 
   // Tabla de plántulas
-  const seedlingsHeight = 20;
+  const seedlingsHeight = 10;
   checkPageOverflow(seedlingsHeight);
   yPosition = await this.seedlingsService.addSeedlingsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
 
   // Totales
-  const totalsHeight = 20; // Aproximación del espacio utilizado
+  const totalsHeight = 10; // Aproximación del espacio utilizado
   checkPageOverflow(totalsHeight);
   this.totalsService.addTotals(pdf, budget, yPosition);
 
