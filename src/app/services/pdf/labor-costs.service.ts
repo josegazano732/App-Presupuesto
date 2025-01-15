@@ -9,12 +9,12 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfLaborCostsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 15;
+  private readonly SECTION_SPACING = 5;
 
   async addLaborCostsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
-    pdf.setTextColor(41, 128, 185);
+    pdf.setTextColor(120);
     pdf.text('COSTOS DE IMPLANTACIÓN - MANO DE OBRA TRABAJOS', this.MARGIN, startY);
 
     const headers = [['TRABAJOS', 'DÍAS', '$/DÍA', 'TOTAL']];
@@ -24,7 +24,9 @@ export class PdfLaborCostsService {
       formatCurrency(item.ratePerDay),
       formatCurrency(item.total)
     ]);
-
+    
+    
+    
     data.push([
       'TOTALES',
       budget.laborCosts.reduce((sum, item) => sum + item.days, 0).toString(),
@@ -38,7 +40,7 @@ export class PdfLaborCostsService {
       body: data,
       startY: startY + 5
     });
-
+    
     return (pdf as any).lastAutoTable.finalY + this.SECTION_SPACING;
   }
 }

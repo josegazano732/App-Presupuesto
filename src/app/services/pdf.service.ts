@@ -72,7 +72,7 @@ export class PdfService {
     // Constantes para márgenes y dimensiones
   const PAGE_HEIGHT = pdf.internal.pageSize.height;
   const PAGE_WIDTH = pdf.internal.pageSize.width;
-  const MARGIN_TOP = 10;
+  const MARGIN_TOP = 5;
   const MARGIN_BOTTOM = 20;
   const CONTENT_HEIGHT = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM;
 

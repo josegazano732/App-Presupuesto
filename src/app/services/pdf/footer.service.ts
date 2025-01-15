@@ -16,7 +16,7 @@ export class PdfFooterService {
         `Página ${i} de ${pageCount}`,
         pdf.internal.pageSize.width / 2,
         pdf.internal.pageSize.height - 10,
-        { align: 'center' }
+        { align: 'left' }
       );
     }
   }

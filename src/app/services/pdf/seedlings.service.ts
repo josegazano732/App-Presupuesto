@@ -9,13 +9,13 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfSeedlingsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 8;
-
+  private readonly SECTION_SPACING = 7;
+//
   async addSeedlingsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
     pdf.setFontSize(12); // Tamaño de fuente
     pdf.setFont('helvetica', 'bold');
-    pdf.setTextColor(41, 128, 185);
-    pdf.text('PLANTINES', this.MARGIN, startY);
+    pdf.setTextColor(120); // Color de texto
+    pdf.text('PLANTINES', this.MARGIN ,startY); //
 
     const headers = [['TIPO', 'PLANTAS/HA', 'CANTIDAD', '$/UNIDAD', 'TOTAL']];
     const data = budget.seedlings.map(item => [

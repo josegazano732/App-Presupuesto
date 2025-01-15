@@ -9,12 +9,12 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfMachineryCostsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 15;
+  private readonly SECTION_SPACING = 5;
 
   async addMachineryCostsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
-    pdf.setTextColor(41, 128, 185);
+    pdf.setTextColor(120);
     pdf.text('MAQUINARIAS Y LUBRICANTES TRABAJOS', this.MARGIN, startY);
 
     const headers = [['TRABAJOS', 'HORAS', '$/HORA', 'TOTAL']];
@@ -34,9 +34,9 @@ export class PdfMachineryCostsService {
 
     (pdf as any).autoTable({
       ...tableConfig,
-      head: headers,
+      head: headers, 
       body: data,
-      startY: startY + 5
+      startY: startY + 4
     });
 
     return (pdf as any).lastAutoTable.finalY + this.SECTION_SPACING;

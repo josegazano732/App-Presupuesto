@@ -8,10 +8,10 @@ import { formatDate } from '../../shared/utils/formatters.util';
   providedIn: 'root'
 })
 export class PdfHeaderService {
-  private readonly MARGIN = 15;
+  private readonly MARGIN = 14;
   private readonly LOGO_WIDTH = 45;
   private readonly LOGO_HEIGHT = 30;
-  private readonly TEXT_START_X = 70;
+  private readonly TEXT_START_X = 78;
 
   constructor(
     private companyService: CompanyService,
@@ -42,8 +42,9 @@ export class PdfHeaderService {
     pdf.setFontSize(16);
     pdf.setFont('helvetica', 'bold');
     pdf.text(companyInfo.name, this.TEXT_START_X, startY + 10);
-
+    // Address, phone and email
     pdf.setFontSize(10);
+    pdf.setTextColor(150);
     pdf.setFont('helvetica', 'normal');
     pdf.text(companyInfo.address, this.TEXT_START_X + 10, startY + 17);
     pdf.text(companyInfo.phone, this.TEXT_START_X + 10, startY + 22);
@@ -51,6 +52,7 @@ export class PdfHeaderService {
 
     // Date - aligned to the right
     pdf.setFont('helvetica', 'italic');
+    pdf.setTextColor(100);
     const dateText = formatDate(new Date());
     const dateWidth = pdf.getTextWidth(dateText);
     pdf.text(
