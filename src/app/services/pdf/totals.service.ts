@@ -23,8 +23,9 @@ export class PdfTotalsService {
       pdf.setTextColor(120);
       const lines = pdf.splitTextToSize(budget.observations, pdf.internal.pageSize.width - (this.MARGIN * 2));
       pdf.text(lines, this.MARGIN, currentY + 5);
-      
-      currentY += (lines.length * 7) + 10; // Add space after observations
+
+  
+      currentY += (lines.length * 7) + 5; // Add space after observations
     }
 
     // Add cost summaries
@@ -35,10 +36,11 @@ export class PdfTotalsService {
     pdf.setTextColor(100);
     pdf.text('RESUMEN DE COSTOS', this.MARGIN, currentY );
     
+    
     pdf.setFontSize(8);
     pdf.setTextColor(120);
     pdf.setFont('helvetica', 'normal');
-    
+
     currentY += 5;
     pdf.text(`Mano de Obra: ${formatCurrency(budget.totalLaborCost)}`, this.MARGIN, currentY);
     currentY += 5;

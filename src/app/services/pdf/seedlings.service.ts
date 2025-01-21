@@ -9,15 +9,15 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfSeedlingsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 7;
+  private readonly SECTION_SPACING = 5;
 //
   async addSeedlingsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
     pdf.setFontSize(12); // Tamaño de fuente
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(120); // Color de texto
-    pdf.text('PLANTINES', this.MARGIN ,startY); //
+    pdf.text('PLANTINES', this.MARGIN ,startY+4); //
 
-    const headers = [['TIPO', 'PLANTAS/HA', 'CANTIDAD', '$/UNIDAD', 'TOTAL']];
+    const headers = [['TIPO', 'PLANTAS/HA', 'CANTIDAD', '$ / UNIDAD', 'TOTAL']];
     const data = budget.seedlings.map(item => [
       item.type,
       item.plantsPerHectare.toString(),
@@ -49,7 +49,8 @@ export class PdfSeedlingsService {
       ...seedlingsConfig,
       head: headers,
       body: data,
-      startY: startY + 5
+      startY: startY + 5,
+      headStyles: { halign: 'center', fillColor: [10, 182, 3], textColor: 255, fontStyle: 'bold', fontSize: 8, cellPadding: 1 },
     });
 
     return (pdf as any).lastAutoTable.finalY + this.SECTION_SPACING;

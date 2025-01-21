@@ -9,13 +9,13 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
 })
 export class PdfMachineryCostsService {
   private readonly MARGIN = 15;
-  private readonly SECTION_SPACING = 5;
+  private readonly SECTION_SPACING = 3;
 
   async addMachineryCostsTable(pdf: jsPDF, budget: Budget, startY: number, tableConfig: PdfTableConfig): Promise<number> {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(120);
-    pdf.text('MAQUINARIAS Y LUBRICANTES TRABAJOS', this.MARGIN, startY);
+    pdf.text('MAQUINARIAS Y LUBRICANTES TRABAJOS', this.MARGIN, startY+3);
 
     const headers = [['TRABAJOS', 'HORAS', '$/HORA', 'TOTAL']];
     const data = budget.machineryWorks.map(item => [
@@ -36,7 +36,8 @@ export class PdfMachineryCostsService {
       ...tableConfig,
       head: headers, 
       body: data,
-      startY: startY + 4
+      startY: startY + 4,
+      headStyles: { halign: 'center', fillColor: [10, 182, 3], textColor: 255, fontStyle: 'bold', fontSize: 8, cellPadding: 1 },
     });
 
     return (pdf as any).lastAutoTable.finalY + this.SECTION_SPACING;
