@@ -11,6 +11,7 @@ import { formatCurrency } from '../../shared/utils/formatters.util';
   styleUrls: ['./budget-form.component.css']
 })
 export class BudgetFormComponent implements OnInit {
+[x: string]: any;
   budget: Budget = getInitialBudget();
   showAddMenu = false;
 
@@ -32,27 +33,60 @@ export class BudgetFormComponent implements OnInit {
     this.calculationsService.calculateTotals(this.budget);
   }
 
-  // Labor Costs Methods
-  updateLaborCostDays(index: number, value: number): void {
-    this.budget.laborCosts[index].days = value;
-    this.budget.laborCosts[index].total = this.calculationsService.calculateLaborCost(this.budget.laborCosts[index]);
-    this.calculationsService.calculateTotals(this.budget);
-  }
+  // Labor Costs Methods¨
 
-  updateLaborCostRate(index: number, value: number): void {
-    this.budget.laborCosts[index].ratePerDay = value;
-    this.budget.laborCosts[index].total = this.calculationsService.calculateLaborCost(this.budget.laborCosts[index]);
-    this.calculationsService.calculateTotals(this.budget);
-  }
+  
+
 
   addLaborCost(): void {
     this.budget.laborCosts.push({
       task: '',
-      days: 0,
-      ratePerDay: 0,
-      total: 0
+      days: 1,
+      ratePerDay: 0.00,
+      total: 0.00
     });
   }
+
+  isLaborCostValid(): boolean {
+    return this.budget.laborCosts.every(cost => cost.task && cost.days > 0 && cost.ratePerDay > 0);
+  }
+
+  validateNonNegative(event: any): void {
+    const inputValue = event.target.value;
+    if (inputValue === '') {
+      event.target.value = '1';
+    } else if (!/^\d{1,3}$/.test(inputValue)) {
+      event.target.value = inputValue.slice(0, 3);
+    } else {
+      const numericValue = parseInt(inputValue, 10);
+      if (numericValue < 0) {
+        event.target.value = '1';
+      }
+    }
+  }
+
+  updateLaborCostDays(index: number, value: number): void {
+    if (value < 1) {
+      value = 1;
+    }
+    this.budget.laborCosts[index].days = value;
+    this.budget.laborCosts[index].total = this.budget.laborCosts[index].days * this.budget.laborCosts[index].ratePerDay;
+    this.calculationsService.calculateTotals(this.budget);
+  }
+
+  updateLaborCostRate(index: number, value: string): void {
+    const numericValue = parseFloat(value) || 0.00;
+    this.budget.laborCosts[index].ratePerDay = numericValue;
+    this.budget.laborCosts[index].total = this.budget.laborCosts[index].days * numericValue;
+    this.calculationsService.calculateTotals(this.budget);
+  }
+
+  autoCompleteDecimal(item: any, property: string): void {
+    if (item[property] && !item[property].toString().includes('.')) {
+      item[property] = parseFloat(item[property]).toFixed(2);
+    }
+  }
+
 
   removeLaborCost(index: number): void {
     this.budget.laborCosts.splice(index, 1);
@@ -101,6 +135,14 @@ export class BudgetFormComponent implements OnInit {
       total: 0
     });
   }
+
+  allowOnlyText(event: KeyboardEvent): void {
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!/^[a-zA-Z]*$/.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
 
   removeSeedling(index: number): void {
     this.budget.seedlings.splice(index, 1);

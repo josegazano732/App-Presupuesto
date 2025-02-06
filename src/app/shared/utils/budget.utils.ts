@@ -11,10 +11,10 @@ export function getInitialBudget(): Budget {
     },
     laborCosts: [
       { task: 'Rastreado', days: 35, ratePerDay: 25000, total: 875000 },
-      { task: 'Nivelado, rastrillado', days: 20, ratePerDay: 25000, total: 500000 },
-      { task: 'Plantación/tractorista', days: 20, ratePerDay: 25000, total: 500000 },
+      { task: 'Nivelado, rastrillado', days: 20, ratePerDay: 25000.43, total: 500000 },
+      { task: 'Plantación/tractorista', days: 20, ratePerDay: 25000.22, total: 500000 },
       { task: 'Plantación/plantadora', days: 60, ratePerDay: 17083.33, total: 1024999.80 },
-      { task: 'Otros', days: 20, ratePerDay: 17000, total: 340000 }
+      { task: 'Otros', days: 20, ratePerDay: 17000.00, total: 340000 }
     ],
     machineryWorks: [
       { task: 'Rastreado', hours: 280, ratePerHour: 72000, total: 20160000 },

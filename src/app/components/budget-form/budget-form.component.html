@@ -3,31 +3,46 @@
     <app-client-info [client]="budget.client"></app-client-info>
 
     <!-- Labor Costos -->
-    <h4>COSTOS DE IMPLANTACIÓN - MANO DE OBRA</h4>
+    <h4>COSTOS DE IMPLANTACIÓN </h4>
     
     <!-- Mobile Vista -->
     <div class="mobile-view">
       <div *ngFor="let item of budget.laborCosts; let i = index" class="budget-item-card">
         <div class="form-group">
           <label>Trabajo</label>
-          <input type="text" 
-          (click)="selectContent($event)"
-          
-          class="form-control" [(ngModel)]="item.task">
+            <input type="text" 
+            (click)="selectContent($event)"
+            (keypress)="allowOnlyText($event)"
+            maxlength="30"
+            class="form-control" [(ngModel)]="item.task"
+            (keypress)="allowOnlyText($event)"
+            placeholder="Ingrese un trabajo" required>
+          <div *ngIf="!item.task" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+            El trabajo no puede estar vacío.
+          </div>
         </div>
         <div class="form-group">
           <label>Días</label>
-          <input type="number" 
-          (click)="selectContent($event)"
-          
-          class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)">
+            <input type="number" 
+            (click)="selectContent($event)"
+            (input)="validateNonNegative($event)"
+            min="0" 
+            max="999"
+            class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)">
+            
         </div>
         <div class="form-group">
-          <label>Precio por día</label>
-          <input type="number" 
-          (click)="selectContent($event)"
-          class="form-control" [ngModel]="item.ratePerDay" (ngModelChange)="updateLaborCostRate(i, $event)">
-        </div>
+            <label>Precio por día</label>
+            <input type="number" min="1" step="1.00"  
+            (click)="selectContent($event)"
+            (blur)="autoCompleteDecimal(item, 'ratePerDay')"
+            (ngModelChange)="updateLaborCostRate(i, $event)"
+            (focusout)="item.ratePerDay = item.ratePerDay || 0.00"
+            class="form-control" [(ngModel)]="item.ratePerDay " required>
+            <div *ngIf="!item.ratePerDay" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+              El precio por día no puede ser 0.
+            </div>
+          </div>
         <div class="total-value">
           Total: {{formatCurrency(item.total)}}
         </div>
@@ -35,7 +50,7 @@
           <i class="bi bi-trash"></i> Eliminar
         </button>
       </div>
-      <button class="btn btn-primary mb-4" (click)="addLaborCost()">
+      <button class="btn btn-primary mb-4" (click)="addLaborCost()" [disabled]="!isLaborCostValid()">
         <i class="bi bi-plus"></i> Agregar Mano de Obra
       </button>
     </div>
@@ -54,9 +69,25 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of budget.laborCosts; let i = index">
-            <td><input type="text" class="form-control" [(ngModel)]="item.task"></td>
-            <td><input type="number"  class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)"></td>
-            <td><input type="number" class="form-control" [ngModel]="item.ratePerDay" (ngModelChange)="updateLaborCostRate(i, $event)"></td>
+            <td>
+                <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.task" 
+                  (keypress)="allowOnlyText($event)"
+                  placeholder="Ingrese un trabajo" required>
+                <div *ngIf="!item.task" class="text-danger" 
+                style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+                  El trabajo no puede estar vacío.
+                </div>
+            </td>
+            <td><input type="number" min="0" max="999" class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)" (input)="validateNonNegative($event)" ></td>
+            <td><input type="number" class="form-control" (click)="selectContent($event)"
+              (blur)="autoCompleteDecimal(item, 'ratePerDay')"
+              (ngModelChange)="updateLaborCostRate(i, $event) "
+              (focusout)="item.ratePerDay = item.ratePerDay || 0.00"
+              class="form-control" [(ngModel)]="item.ratePerDay " required>
+              <div *ngIf="!item.ratePerDay" class="text-danger"
+              style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+                El precio por día no puede ser 0.
+              </div></td>
             <td>{{formatCurrency(item.total)}}</td>
             <td>
               <button class="btn btn-danger btn-sm" (click)="removeLaborCost(i)">
@@ -72,7 +103,7 @@
           </tr>
         </tfoot>
       </table>
-      <button class="btn btn-primary mb-4" (click)="addLaborCost()">
+      <button class="btn btn-primary mb-4" (click)="addLaborCost()" [disabled]="!isLaborCostValid()">
         <i class="bi bi-plus"></i> Agregar Mano de Obra
       </button>
     </div>
@@ -85,19 +116,28 @@
       <div *ngFor="let item of budget.machineryWorks; let i = index" class="budget-item-card">
         <div class="form-group">
           <label>Trabajo</label>
-          <input type="text" class="form-control" [(ngModel)]="item.task">
+          <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.task" (keypress)="allowOnlyText($event)" placeholder="Ingrese un trabajo" required>
+          <div *ngIf="!item.task" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+            El trabajo no puede estar vacío.
+          </div>
         </div>
         <div class="form-group">
           <label>Horas</label>
-          <input type="number" 
-          (click)="selectContent($event)"
-          class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)">
+            <input type="number" 
+            (click)="selectContent($event)"
+            maxlength="7"
+            min="0" 
+            max="9999999"
+            class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)">
         </div>
         <div class="form-group">
           <label>Precio por hora</label>
           <input type="number" 
           (click)="selectContent($event)"
           class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)">
+          <div *ngIf="!item.ratePerHour" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+            El precio por hora no puede ser 0.
+          </div>
         </div>
         <div class="total-value">
           Total: {{formatCurrency(item.total)}}
@@ -125,7 +165,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of budget.machineryWorks; let i = index">
-            <td><input type="text" class="form-control" [(ngModel)]="item.task"></td>
+            <td><input type="text" maxlength="30" class="form-control" [(ngModel)]="item.task" (keypress)="allowOnlyText($event)">
+              <div *ngIf="!item.task" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+                El trabajo no puede estar vacío.
+              </div></td>
             <td><input type="number" class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)"></td>
             <td><input type="number" class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)"></td>
             <td>{{formatCurrency(item.total)}}</td>
@@ -156,7 +199,8 @@
       <div *ngFor="let item of budget.seedlings; let i = index" class="budget-item-card">
         <div class="form-group">
           <label>Tipo</label>
-          <input type="text" class="form-control" [(ngModel)]="item.type">
+          <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.type"
+          (keypress)="allowOnlyText($event)">
         </div>
         <div class="form-group">
           <label>Plantas/Ha</label>
@@ -203,7 +247,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of budget.seedlings; let i = index">
-            <td><input type="text" class="form-control" [(ngModel)]="item.type"></td>
+            <td><input type="text" maxlength="30" class="form-control" [(ngModel)]="item.type" (keypress)="allowOnlyText($event)"></td>
             <td><input type="number" class="form-control" [(ngModel)]="item.plantsPerHectare"></td>
             <td><input type="number" class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)"></td>
             <td><input type="number" class="form-control" [(ngModel)]="item.pricePerUnit" (change)="updateSeedling(i)"></td>

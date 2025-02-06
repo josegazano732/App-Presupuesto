@@ -8,7 +8,7 @@ export interface Client {
 export interface LaborCost {
   task: string;
   days: number;
-  ratePerDay: number;
+  ratePerDay: number ;
   total: number;
 }
 

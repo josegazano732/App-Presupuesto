@@ -9,8 +9,8 @@ export class CompanyService {
     return {
       name: '',
       address: 'Concepcion de la Sierra',
-      phone: '3758-111111',
-      email: 'pernigotti@miempresa.com',
+      phone: '3758-1515115',
+      email: 'pernigotti@prueba.com',
       logoUrl: 'assets/images/logo.png'
     };
   }

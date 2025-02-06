@@ -4,16 +4,17 @@
       <div class="form-group">
         <label class="form-label">Sr./a:</label>
         <input type="text" class="form-control" [(ngModel)]="client.name"
+         (keypress)="allowOnlyText($event)"
         placeholder="Nombre del cliente">
       </div>
       <div class="form-group">
         <label class="form-label">Dirección:</label>
         <input type="text" class="form-control" [(ngModel)]="client.address"
-        placeholder="Dirección del cliente">
+        placeholder="Ingrese la dirección del cliente">
       </div>
       <div class="form-group">
         <label class="form-label">Teléfono:</label>
-        <input type="tel" (input)="validarNumeros($event)"  title="Solo se permiten números" class="form-control" [(ngModel)]="client.phone"
+        <input type="tel" (input)="validarNumerosYGuiones($event)"  title="Solo se permiten números" class="form-control" [(ngModel)]="client.phone"
         placeholder="Teléfono del cliente">
       </div>
       <div class="form-group">
@@ -22,7 +23,9 @@
         (input)="validarCorreo()"
         class="form-control" [(ngModel)]="client.email"
         placeholder="Email del cliente">
-        <p *ngIf="client.email && error" style="color: red;">Ingrese un correo válido.</p>
+        <div *ngIf="client.email && error" class="alert alert-danger mt-2" style="font-size: 0.9em;">
+          Ingrese un correo válido. Ejemplo: nombre@dominio.com
+        </div>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { ClientInfoComponent } from './components/budget-form/client-info/client
 import { PresupuestoFormComponent } from './components/presupuesto-form/presupuesto-form.component';
 import { SumPipe } from './pipes/sum.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
