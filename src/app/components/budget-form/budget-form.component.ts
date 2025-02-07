@@ -94,9 +94,17 @@ export class BudgetFormComponent implements OnInit {
   }
 
   // Machinery Methods
+
+  isMachineryWorkValid(): boolean {
+    return this.budget.machineryWorks.every(work => work.task && work.hours > 0 && work.ratePerHour > 0);
+  }
+
   updateMachineryHours(index: number, value: number): void {
+    if (value < 1) {
+      value = 1;
+    }
     this.budget.machineryWorks[index].hours = value;
-    this.budget.machineryWorks[index].total = this.calculationsService.calculateMachineryCost(this.budget.machineryWorks[index]);
+    this.budget.machineryWorks[index].total = this.budget.machineryWorks[index].ratePerHour * value;
     this.calculationsService.calculateTotals(this.budget);
   }
 

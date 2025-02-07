@@ -123,7 +123,7 @@
         </div>
         <div class="form-group">
           <label>Horas</label>
-            <input type="number" 
+            <input type="number" min="0"
             (click)="selectContent($event)"
             maxlength="7"
             min="0" 
@@ -132,7 +132,7 @@
         </div>
         <div class="form-group">
           <label>Precio por hora</label>
-          <input type="number" 
+          <input type="number" min="1"
           (click)="selectContent($event)"
           class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)">
           <div *ngIf="!item.ratePerHour" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
@@ -146,7 +146,7 @@
           <i class="bi bi-trash"></i> Eliminar
         </button>
       </div>
-      <button class="btn btn-primary mb-4" (click)="addMachineryWork()">
+      <button class="btn btn-primary mb-4" (click)="addMachineryWork()" [disabled]="!isMachineryWorkValid()">
         <i class="bi bi-plus"></i> Agregar Maquinaria
       </button>
     </div>
@@ -169,8 +169,13 @@
               <div *ngIf="!item.task" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
                 El trabajo no puede estar vacío.
               </div></td>
-            <td><input type="number" class="form-control" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)"></td>
-            <td><input type="number" class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)"></td>
+            <td><input type="number" class="form-control" min="0" [ngModel]="item.hours" (ngModelChange)="updateMachineryHours(i, $event)"></td>
+            <td><input type="number" min="1" step="0.01" class="form-control" [ngModel]="item.ratePerHour" (ngModelChange)="updateMachineryRate(i, $event)" (blur)="autoCompleteDecimal(item, 'ratePerHour')">
+              <div *ngIf="!item.ratePerHour" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+              El precio por hora no puede ser 0 o vacio.
+              </div>
+            </td>
+          
             <td>{{formatCurrency(item.total)}}</td>
             <td>
               <button class="btn btn-danger btn-sm" (click)="removeMachineryWork(i)">
@@ -186,7 +191,7 @@
           </tr>
         </tfoot>
       </table>
-      <button class="btn btn-primary mb-4" (click)="addMachineryWork()">
+      <button class="btn btn-primary mb-4" (click)="addMachineryWork()" [disabled]="!isMachineryWorkValid()">
         <i class="bi bi-plus"></i> Agregar Maquinaria
       </button>
     </div>
