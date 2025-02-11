@@ -204,18 +204,21 @@
       <div *ngFor="let item of budget.seedlings; let i = index" class="budget-item-card">
         <div class="form-group">
           <label>Tipo</label>
-          <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.type"
-          (keypress)="allowOnlyText($event)">
+            <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.type"
+            (keypress)="allowOnlyText($event)" placeholder="Ingrese un tipo" required>
+            <div *ngIf="!item.type" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+            El tipo no puede estar vacío.
+            </div>
         </div>
         <div class="form-group">
           <label>Plantas/Ha</label>
-          <input type="number" 
+          <input type="number" min="0"
           (click)="selectContent($event)"
           class="form-control" [(ngModel)]="item.plantsPerHectare">
         </div>
         <div class="form-group">
           <label>Cantidad</label>
-          <input type="number" 
+          <input type="number" min="0"
           (click)="selectContent($event)"
           class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)">
         </div>
