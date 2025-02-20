@@ -214,13 +214,18 @@
           <label>Plantas/Ha</label>
           <input type="number" min="0"
           (click)="selectContent($event)"
+          (keypress)="allowOnlyNumbers($event)"
           class="form-control" [(ngModel)]="item.plantsPerHectare">
         </div>
         <div class="form-group">
-          <label>Cantidad</label>
-          <input type="number" min="0"
-          (click)="selectContent($event)"
-          class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)">
+            <label>Cantidad</label>
+            <input type="number" min="0" 
+            (keypress)="allowOnlyNumbers($event)"
+            (click)="selectContent($event)"
+            class="form-control" [(ngModel)]="item.quantity" (change)="updateSeedling(i)" required>
+            <div *ngIf="!item.quantity" class="text-danger" style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
+            La cantidad no puede estar vacía.
+            </div>
         </div>
         <div class="form-group">
           <label>Precio por unidad</label>

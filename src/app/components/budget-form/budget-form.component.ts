@@ -150,6 +150,14 @@ export class BudgetFormComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+  allowOnlyNumbers(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    const charCode = event.key.charCodeAt(0);
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
   
 
   removeSeedling(index: number): void {
