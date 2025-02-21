@@ -28,7 +28,7 @@
             (input)="validateNonNegative($event)"
             min="0" 
             max="999"
-            class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)">
+            class="form-control" [(ngModel)]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)">
             
         </div>
         <div class="form-group">
@@ -78,8 +78,16 @@
                   El trabajo no puede estar vacío.
                 </div>
             </td>
-            <td><input type="number" min="0" max="999" class="form-control" [ngModel]="item.days" (ngModelChange)="updateLaborCostDays(i, $event)" (input)="validateNonNegative($event)" ></td>
-            <td><input type="number" class="form-control" (click)="selectContent($event)"
+            
+            <td>
+              <input type="number" min="0" max="999" class="form-control" 
+              [ngModel]="item.days" 
+              (ngModelChange)="updateLaborCostDays(i, $event)" 
+              (input)="validateNonNegative($event)" >
+            </td>
+
+            <td>
+              <input type="number" class="form-control" (click)="selectContent($event)"
               (blur)="autoCompleteDecimal(item, 'ratePerDay')"
               (ngModelChange)="updateLaborCostRate(i, $event) "
               (focusout)="item.ratePerDay = item.ratePerDay || 0.00"
@@ -87,7 +95,8 @@
               <div *ngIf="!item.ratePerDay" class="text-danger"
               style="font-size: 0.875em; margin-top: 0.5em; color: #dc3545; font-weight: bold; background-color: #f8d7da; padding: 0.5em; border-radius: 0.25em;">
                 El precio por día no puede ser 0.
-              </div></td>
+              </div>
+            </td>
             <td>{{formatCurrency(item.total)}}</td>
             <td>
               <button class="btn btn-danger btn-sm" (click)="removeLaborCost(i)">
@@ -228,6 +237,7 @@
         <div class="form-group">
             <label>Precio por unidad</label>
             <input type="number" step="0.01"
+             (blur)="autoCompleteDecimal(item, 'pricePerUnit')"
             (click)="selectContent($event)"
             (blur)="autoCompleteDecimal(item, 'pricePerUnit')"
             class="form-control" [(ngModel)]="item.pricePerUnit" (change)="updateSeedling(i)" required>
@@ -285,6 +295,7 @@
 
             <td>
               <input type="number" class="form-control" [(ngModel)]="item.pricePerUnit" 
+               (blur)="autoCompleteDecimal(item, 'pricePerUnit')"
               (change)="updateSeedling(i)" step="0.01"
               (click)="selectContent($event)"
               (blur)="autoCompleteDecimal(item, 'pricePerUnit')"

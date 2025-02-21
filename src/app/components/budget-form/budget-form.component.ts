@@ -54,7 +54,7 @@ export class BudgetFormComponent implements OnInit {
   validateNonNegative(event: any): void {
     const inputValue = event.target.value;
     if (inputValue === '') {
-      event.target.value = '0';
+      event.target.value = '';
     } else if (!/^\d{1,3}$/.test(inputValue)) {
       event.target.value = inputValue.slice(0, 3);
     } else {
@@ -82,7 +82,7 @@ export class BudgetFormComponent implements OnInit {
   }
 
   autoCompleteDecimal(item: any, property: string): void {
-    if (item[property] && !item[property].toString().includes('.')) {
+    if (item[property] && !item[property].toString().includes(',')) {
       item[property] = parseFloat(item[property]).toFixed(2);
     }
   }
