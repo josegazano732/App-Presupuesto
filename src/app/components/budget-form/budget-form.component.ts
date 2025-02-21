@@ -194,7 +194,7 @@ export class BudgetFormComponent implements OnInit {
   }
 
   isFormComplete(): boolean {
-    return this.isLaborCostValid() && this.isMachineryWorkValid() && this.isSeedlingValid();
+    return this.isLaborCostValid() && this.isMachineryWorkValid() && this.isSeedlingValid() && this.budget.grandTotal > 0;
   }
 
 }
