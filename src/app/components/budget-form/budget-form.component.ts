@@ -54,7 +54,7 @@ export class BudgetFormComponent implements OnInit {
   validateNonNegative(event: any): void {
     const inputValue = event.target.value;
     if (inputValue === '') {
-      event.target.value = '1';
+      event.target.value = '0';
     } else if (!/^\d{1,3}$/.test(inputValue)) {
       event.target.value = inputValue.slice(0, 3);
     } else {
@@ -144,6 +144,10 @@ export class BudgetFormComponent implements OnInit {
     });
   }
 
+  isSeedlingValid(): boolean {
+    return this.budget.seedlings.every(seedling => seedling.type &&  seedling.quantity > 0 && seedling.pricePerUnit > 0);
+  }
+
   allowOnlyText(event: KeyboardEvent): void {
     const inputChar = String.fromCharCode(event.charCode);
     if (!/^[a-zA-Z]*$/.test(inputChar)) {
@@ -155,6 +159,14 @@ export class BudgetFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const charCode = event.key.charCodeAt(0);
     if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
+  allowOnlyDecimal(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    const charCode = event.key.charCodeAt(0);
+    if ((charCode < 48 || charCode > 57) && charCode !== 46) {
       event.preventDefault();
     }
   }
@@ -181,6 +193,8 @@ export class BudgetFormComponent implements OnInit {
     inputElement.select();
   }
 
-  
+  isFormComplete(): boolean {
+    return this.isLaborCostValid() && this.isMachineryWorkValid() && this.isSeedlingValid();
+  }
 
 }
