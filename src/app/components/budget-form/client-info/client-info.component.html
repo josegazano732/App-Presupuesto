@@ -1,32 +1,26 @@
 <div class="card">
-  <div class="card-body">
-    <div class="row">
+  <h5 class="card-title">Datos del cliente</h5>
+  <form class="form">
+    <div class="form-grid">
       <div class="form-group">
-        <label class="form-label">Sr./a:</label>
-        <input type="text" class="form-control" [(ngModel)]="client.name"
-         (keypress)="allowOnlyText($event)"
-        placeholder="Nombre del cliente">
+        <input type="text" id="clientName" class="form-control" placeholder=" " aria-label="Nombre del cliente">
+        <label for="clientName" class="form-label">Sr./a:</label>
       </div>
       <div class="form-group">
-        <label class="form-label">Dirección:</label>
-        <input type="text" class="form-control" [(ngModel)]="client.address"
-        placeholder="Ingrese la dirección del cliente">
+        <input type="text" id="clientAddress" class="form-control" placeholder=" " aria-label="Dirección del cliente">
+        <label for="clientAddress" class="form-label">Dirección:</label>
       </div>
       <div class="form-group">
-        <label class="form-label">Teléfono:</label>
-        <input type="tel" (input)="validarNumerosYGuiones($event)"  title="Solo se permiten números" class="form-control" [(ngModel)]="client.phone"
-        placeholder="Teléfono del cliente">
+        <input type="tel" id="clientPhone" class="form-control" placeholder=" " aria-label="Teléfono del cliente" title="Solo se permiten números">
+        <label for="clientPhone" class="form-label">Teléfono:</label>
       </div>
       <div class="form-group">
-        <label class="form-label">Email:</label>
-        <input type="email" 
-        (input)="validarCorreo()"
-        class="form-control" [(ngModel)]="client.email"
-        placeholder="Email del cliente">
-        <div *ngIf="client.email && error" class="alert alert-danger mt-2" style="font-size: 0.9em;">
-          Ingrese un correo válido. Ejemplo: nombre@dominio.com
+        <input type="email" id="clientEmail" class="form-control" placeholder=" " aria-label="Email del cliente" [(ngModel)]="email" name="email" (input)="validateEmail()">
+        <label for="clientEmail" class="form-label">Email:</label>
+        <div id="emailError" class="alert" role="alert" [class.show]="showError">
+          <span class="alert-icon">⚠️</span> Ingrese un correo válido. Ejemplo: nombre@dominio.com
         </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>

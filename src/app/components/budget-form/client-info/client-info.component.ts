@@ -11,6 +11,9 @@ export class ClientInfoComponent {
 
   error: boolean = false;
 
+  email: string = '';
+  showError: boolean = false;
+
   // Validar solo números y guiones y longitud máxima de 11 caracteres
   validarNumerosYGuiones(event: any) {
     let inputValue = event.target.value;
@@ -25,6 +28,11 @@ export class ClientInfoComponent {
   validarCorreo() {
     const patronCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     this.error = !patronCorreo.test(this.client.email);
+  }
+
+  validateEmail() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    this.showError = !emailRegex.test(this.email) && this.email.trim() !== "";
   }
 
   allowOnlyText(event: KeyboardEvent): void {

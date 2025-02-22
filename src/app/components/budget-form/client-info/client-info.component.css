@@ -1,70 +1,105 @@
-/* Estilos generales para la tarjeta */
 .card {
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  background: #ffffff;
-  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 1200px; /* Aumentamos el ancho para 4 columnas */
+  margin-bottom: 20px;
+  margin-left: auto;
+  padding: 8px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* Distribución en grid para optimizar el espacio */
-.row {
+.form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 10px; /* Espacio entre los campos */
 }
 
-/* Estilos para los campos de formulario */
 .form-group {
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-label {
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
+  position: relative;
+  margin-bottom: 15px;
 }
 
 .form-control {
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 8px;
-  transition: all 0.3s ease-in-out;
   width: 100%;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
 .form-control:focus {
   border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
-/* Animación al enfocar un campo */
-@keyframes inputFocus {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.02);
-  }
+.form-control.invalid {
+  border-color: #dc3545;
 }
 
-.form-control:focus {
-  animation: inputFocus 0.2s ease-in-out;
+.form-label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #999999;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
 
-/* Estilos para el mensaje de error */
-.alert-danger {
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+  top: 0;
+  font-size: 12px;
+  color: #010913;
+  background-color: #ffffff;
+  padding: 0 5px;
+}
+
+.form-control.invalid + .form-label {
+  color: #dc3545;
+}
+
+.alert {
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-top: 8px;
+  display: none;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
   color: #721c24;
-  border-radius: 5px;
-  padding: 8px;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.alert.show {
+  display: block;
+  opacity: 1;
+}
+
+.alert-icon {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Responsive: Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Una columna en móviles */
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .form-control {
+    font-size: 14px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
 }

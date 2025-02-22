@@ -43,12 +43,14 @@
               El precio por día no puede ser 0.
             </div>
           </div>
-        <div class="total-value">
-          Total: {{formatCurrency(item.total)}}
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <div class="total-value" >
+            Total: {{formatCurrency(item.total)}}
+            </div>
+          <button class="btn btn-danger" (click)="removeLaborCost(i)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
         </div>
-        <button class="btn btn-danger w-100 mt-2" (click)="removeLaborCost(i)">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
       </div>
       <button class="btn btn-primary mb-4" (click)="addLaborCost()" [disabled]="!isLaborCostValid()">
         <i class="bi bi-plus"></i> Agregar Mano de Obra
@@ -149,12 +151,14 @@
             El precio por hora no puede ser 0.
             </div>
         </div>
-        <div class="total-value">
-          Total: {{formatCurrency(item.total)}}
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <div class="total-value">
+            Total: {{formatCurrency(item.total)}}
+          </div>
+          <button class="btn btn-danger" (click)="removeMachineryWork(i)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
         </div>
-        <button class="btn btn-danger w-100 mt-2" (click)="removeMachineryWork(i)">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
       </div>
       <button class="btn btn-primary mb-4" (click)="addMachineryWork()" [disabled]="!isMachineryWorkValid()">
         <i class="bi bi-plus"></i> Agregar Maquinaria
@@ -245,12 +249,14 @@
             El precio por unidad no puede ser 0 o vacío.
             </div>
         </div>
-        <div class="total-value">
-          Total: {{formatCurrency(item.total)}}
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <div class="total-value">
+            Total: {{formatCurrency(item.total)}}
+          </div>
+          <button class="btn btn-danger" (click)="removeSeedling(i)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
         </div>
-        <button class="btn btn-danger w-100 mt-2" (click)="removeSeedling(i)">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
       </div>
       <button class="btn btn-primary mb-4" (click)="addSeedling()" [disabled]="!isSeedlingValid()">
         <i class="bi bi-plus"></i> Agregar Plantín
