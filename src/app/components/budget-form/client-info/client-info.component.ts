@@ -32,7 +32,7 @@ export class ClientInfoComponent {
 
   validateEmail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    this.showError = !emailRegex.test(this.email) && this.email.trim() !== "";
+    this.showError = !emailRegex.test(this.client.email) && this.client.email.trim() !== "";
   }
 
   allowOnlyText(event: KeyboardEvent): void {

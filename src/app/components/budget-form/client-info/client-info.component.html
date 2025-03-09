@@ -3,19 +3,22 @@
   <form class="form">
     <div class="form-grid">
       <div class="form-group">
-        <input type="text" id="clientName" class="form-control" placeholder=" " aria-label="Nombre del cliente">
+        <input type="text" id="clientName" class="form-control" placeholder=" " aria-label="Nombre del cliente"
+        [(ngModel)]= "client.name"  name="name" required>
         <label for="clientName" class="form-label">Sr./a:</label>
       </div>
       <div class="form-group">
-        <input type="text" id="clientAddress" class="form-control" placeholder=" " aria-label="Dirección del cliente">
+        <input type="text" id="clientAddress" class="form-control" placeholder=" " aria-label="Dirección del cliente"
+        [(ngModel)]= "client.address"  name="address" required>
         <label for="clientAddress" class="form-label">Dirección:</label>
       </div>
       <div class="form-group">
-        <input type="tel" id="clientPhone" class="form-control" placeholder=" " aria-label="Teléfono del cliente" title="Solo se permiten números">
+        <input type="tel" id="clientPhone" class="form-control" placeholder=" " aria-label="Teléfono del cliente" title="Solo se permiten números y guiones"
+        [(ngModel)]="client.phone" name="phone" pattern="[0-9\-]{10,15}" required oninput="this.value = this.value.replace(/[^0-9\-]/g, '')">
         <label for="clientPhone" class="form-label">Teléfono:</label>
       </div>
       <div class="form-group">
-        <input type="email" id="clientEmail" class="form-control" placeholder=" " aria-label="Email del cliente" [(ngModel)]="email" name="email" (input)="validateEmail()">
+        <input type="email" id="clientEmail" class="form-control" placeholder=" " aria-label="Email del cliente" [(ngModel)]="client.email" name="email" (input)="validateEmail()">
         <label for="clientEmail" class="form-label">Email:</label>
         <div id="emailError" class="alert" role="alert" [class.show]="showError">
           <span class="alert-icon">⚠️</span> Ingrese un correo válido. Ejemplo: nombre@dominio.com

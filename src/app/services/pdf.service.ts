@@ -76,12 +76,12 @@ export class PdfService {
   const MARGIN_BOTTOM = 20;
   const CONTENT_HEIGHT = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM;
 
-    // Set text color for headers to match theme
+    // Agregar color al texto del encabezado para que coincida con el tema
     pdf.setTextColor(this.PRIMARY_COLOR[0], this.PRIMARY_COLOR[1], this.PRIMARY_COLOR[2]);
 
     let yPosition = this.MARGIN_TOP;
 
-     // Helper para manejar saltos de página
+     // Ayuda a verificar si el contenido actual se desborda en la página actual
   const checkPageOverflow = (height: number) => {
     if (yPosition + height > CONTENT_HEIGHT) {
       pdf.addPage();
