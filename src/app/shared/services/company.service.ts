@@ -8,9 +8,9 @@ export class CompanyService {
   getCompanyInfo(): CompanyInfo {
     return {
       name: '',
-      address: 'Concepcion de la Sierra',
-      phone: '3758-1515115',
-      email: 'pernigotti@prueba.com',
+      address: 'Apostoles Misiones',
+      phone: '3758-112233',
+      email: 'delcampo@prueba.com',
       logoUrl: 'assets/images/logo.png'
     };
   }

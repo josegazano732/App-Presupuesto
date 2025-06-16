@@ -6,7 +6,7 @@ import { Budget, LaborCost, MachineryWork, Seedling } from '../../../models/budg
 })
 export class BudgetCalculationsService {
   calculateLaborCost(item: LaborCost): number {
-    return item.days * item.ratePerDay;
+    return item.cantidad * item.precioUnitario;
   }
 
   calculateMachineryCost(item: MachineryWork): number {
@@ -18,7 +18,9 @@ export class BudgetCalculationsService {
   }
 
   calculateTotals(budget: Budget): void {
-    budget.totalLaborCost = budget.laborCosts.reduce((sum, item) => sum + item.total, 0);
+    budget.totalLaborCost = budget.laborCosts
+      .filter(item => item.descripcion.trim().toLowerCase() !== 'flete en destino')
+      .reduce((sum, item) => sum + item.total, 0);
     budget.totalMachineryCost = budget.machineryWorks.reduce((sum, item) => sum + item.total, 0);
     budget.totalSeedlingsCost = budget.seedlings.reduce((sum, item) => sum + item.total, 0);
     budget.grandTotal = budget.totalLaborCost + budget.totalMachineryCost + budget.totalSeedlingsCost;

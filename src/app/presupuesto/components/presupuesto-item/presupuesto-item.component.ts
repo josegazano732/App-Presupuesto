@@ -9,4 +9,5 @@ export class PresupuestoItemComponent {
   @Input() item!: Item;
   @Output() actualizar = new EventEmitter<void>();
   @Output() eliminar = new EventEmitter<void>();
+  unidadesMedida: string[] = ['Unidad', 'Metro', 'Metro²', 'Metro³', 'Kg', 'Litro'];
 }

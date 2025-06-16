@@ -15,21 +15,21 @@ export class PdfLaborCostsService {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(120);
-    pdf.text('COSTOS DE IMPLANTACIÓN - MANO DE OBRA TRABAJOS', this.MARGIN, startY+4);
+    pdf.text('Detalle de presupuesto', this.MARGIN, startY+4);
 
-    const headers = [['TRABAJOS', 'DÍAS', '$/DÍA', 'TOTAL']];
+    const headers = [['DESCRIPCIÓN', 'CANTIDAD', 'UNIDAD DE MEDIDA', 'PRECIO UNITARIO', 'TOTAL']];
     const data = budget.laborCosts.map(item => [
-      item.task,
-      item.days.toString(),
-      formatCurrency(item.ratePerDay),
+      item.descripcion,
+      item.cantidad.toString(),
+      item.unidadMedida,
+      formatCurrency(item.precioUnitario),
       formatCurrency(item.total)
     ]);
     
-    
-    
     data.push([
       'TOTALES',
-      budget.laborCosts.reduce((sum, item) => sum + item.days, 0).toString(),
+      budget.laborCosts.reduce((sum, item) => sum + item.cantidad, 0).toString(),
+      '',
       '',
       formatCurrency(budget.totalLaborCost)
     ]);
@@ -40,8 +40,23 @@ export class PdfLaborCostsService {
       body: data,
       startY: startY + 5,
       headStyles: { halign: 'center', fillColor: [10, 182, 3], textColor: 255, fontStyle: 'bold', fontSize: 8, cellPadding: 1 },
+      columnStyles: {
+        1: { cellWidth: 18, halign: 'center', valign: 'middle' }, // Cantidad
+        2: { cellWidth: 28, halign: 'center', valign: 'middle' }, // Unidad de Medida
+        3: { halign: 'center', valign: 'middle' }, // Precio Unitario
+        4: { halign: 'center', valign: 'middle' }  // Total
+      }
     });
-    
-    return (pdf as any).lastAutoTable.finalY + this.SECTION_SPACING;
+
+    // Eliminar la palabra 'RESUMEN', solo mostrar el total general
+    const resumenY = (pdf as any).lastAutoTable.finalY + 16;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'bold');
+    const totalGeneral = budget.laborCosts.reduce((sum, item) => sum + (item.cantidad * item.precioUnitario), 0);
+    const totalText = `TOTAL GENERAL: ${formatCurrency(totalGeneral)}`;
+    pdf.text(totalText, pageWidth - this.MARGIN, resumenY + 4, { align: 'right' });
+
+    return resumenY + 12;
   }
 }

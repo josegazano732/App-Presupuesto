@@ -15,9 +15,7 @@ export class PdfMachineryCostsService {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(120);
-    pdf.text('MAQUINARIAS Y LUBRICANTES TRABAJOS', this.MARGIN, startY+3);
 
-    const headers = [['TRABAJOS', 'HORAS', '$/HORA', 'TOTAL']];
     const data = budget.machineryWorks.map(item => [
       item.task,
       item.hours.toString(),
@@ -34,7 +32,6 @@ export class PdfMachineryCostsService {
 
     (pdf as any).autoTable({
       ...tableConfig,
-      head: headers, 
       body: data,
       startY: startY + 4,
       headStyles: { halign: 'center', fillColor: [10, 182, 3], textColor: 255, fontStyle: 'bold', fontSize: 8, cellPadding: 1 },

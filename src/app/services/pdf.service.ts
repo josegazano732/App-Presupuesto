@@ -102,15 +102,9 @@ export class PdfService {
   checkPageOverflow(laborCostsHeight);
   yPosition = await this.laborCostsService.addLaborCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
 
-  // Tabla de costos de maquinaria
-  const machineryCostsHeight = 15;
-  checkPageOverflow(machineryCostsHeight);
-  yPosition = await this.machineryCostsService.addMachineryCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
-
-  // Tabla de plántulas
-  const seedlingsHeight = 10;
-  checkPageOverflow(seedlingsHeight);
-  yPosition = await this.seedlingsService.addSeedlingsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
+  // Eliminar o comentar la generación de tablas de maquinaria y plantines
+  // yPosition = await this.machineryCostsService.addMachineryCostsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
+  // yPosition = await this.seedlingsService.addSeedlingsTable(pdf, budget, yPosition, this.TABLE_CONFIG);
 
   // Totales
   const totalsHeight = 5; // Aproximación del espacio utilizado

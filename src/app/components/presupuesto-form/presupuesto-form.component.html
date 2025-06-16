@@ -15,11 +15,19 @@
     <div *ngFor="let item of presupuesto.items; let i = index" class="mb-2">
       <div class="row">
         <div class="col">
-          <input 
-            [(ngModel)]="item.descripcion"
-            placeholder="Descripción"
-            class="form-control"
-          >
+          <div class="position-relative">
+            <input 
+              [(ngModel)]="item.descripcion"
+              placeholder="Descripción"
+              class="form-control"
+              (input)="this['filtrarProductosPorIndice'](i, item.descripcion)"
+            >
+            <ul *ngIf="this['productoFiltradoIndex'] === i && this['productoFiltrado'].length > 0" class="list-group position-absolute w-100" style="z-index: 10;">
+              <li *ngFor="let prod of this['productoFiltrado']" class="list-group-item list-group-item-action" (click)="this['seleccionarProducto'](item, prod)">
+                {{ prod }}
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-2">
           <input 

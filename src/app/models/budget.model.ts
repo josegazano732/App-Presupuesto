@@ -6,9 +6,10 @@ export interface Client {
 }
 
 export interface LaborCost {
-  task: string;
-  days: number;
-  ratePerDay: number ;
+  descripcion: string;
+  cantidad: number;
+  unidadMedida: string;
+  precioUnitario: number;
   total: number;
 }
 

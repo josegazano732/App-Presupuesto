@@ -1,9 +1,9 @@
 import { Item } from '../models/item.model';
 
 export const validateItem = (item: Item): boolean => {
-  return item.descripcion.trim() !== '' && 
+  return item.detalleProducto.trim() !== '' && 
          item.cantidad > 0 && 
-         item.precioUnitario >= 0;
+         item.total >= 0;
 };
 
 export const validatePresupuestoItems = (items: Item[]): boolean => {

@@ -19,6 +19,16 @@ export class PresupuestoFormComponent {
     total: 0
   };
 
+  // Lista de productos sugeridos
+  productosSugeridos: string[] = [
+    'Pala', 'Azada', 'Fertilizante', 'Semilla', 'Tractor',
+    'Rastrillo', 'Balde', 'Manguera', 'Guantes', 'Carretilla'
+  ];
+
+  // Para autocompletado
+  productoFiltrado: string[] = [];
+  productoFiltradoIndex: number = -1;
+
   agregarItem(): void {
     this.presupuesto.items.push({
       descripcion: '',
@@ -26,6 +36,28 @@ export class PresupuestoFormComponent {
       precioUnitario: 0,
       total: 0
     });
+    // Limpiar autocompletado al agregar línea
+    this.productoFiltrado = [];
+    this.productoFiltradoIndex = -1;
+  }
+
+  // Filtrar productos sugeridos según la descripción y el índice de la línea
+  filtrarProductosPorIndice(index: number, descripcion: string): void {
+    if (descripcion && descripcion.length > 0) {
+      this.productoFiltrado = this.productosSugeridos.filter(prod =>
+        prod.toLowerCase().includes(descripcion.toLowerCase())
+      );
+      this.productoFiltradoIndex = index;
+    } else {
+      this.productoFiltrado = [];
+      this.productoFiltradoIndex = -1;
+    }
+  }
+
+  seleccionarProducto(item: any, prod: string): void {
+    item.descripcion = prod;
+    this.productoFiltrado = [];
+    this.productoFiltradoIndex = -1;
   }
 
   eliminarItem(index: number): void {

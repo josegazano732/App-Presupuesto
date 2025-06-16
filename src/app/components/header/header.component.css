@@ -24,8 +24,12 @@
 
 .company-logo {
   height: 100px;
-  width: auto;
-  object-fit: contain;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #fff;
 }
 
 .company-name {
@@ -97,11 +101,29 @@
   }
 
   .company-logo {
-    height: 70px;
+    height: 100px;
   }
 
   .company-name h1 {
     font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .company-logo {
+    height: 64px !important;
+    width: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    border-radius: 50% !important;
+    aspect-ratio: 1/1 !important;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+    display: block;
   }
 }
 

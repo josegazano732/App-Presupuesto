@@ -13,7 +13,7 @@ export class PdfClientInfoService {
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(130)
-    pdf.text('INFORMACIÓN DEL CLIENTE', this.MARGIN, startY -1);
+    //pdf.text('INFORMACIÓN DEL CLIENTE', this.MARGIN, startY -1);
 
     pdf.setFontSize(10);
     pdf.setFont('helvetica', 'normal');

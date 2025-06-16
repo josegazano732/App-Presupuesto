@@ -15,7 +15,6 @@ export class PdfSeedlingsService {
     pdf.setFontSize(12); // Tamaño de fuente
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(120); // Color de texto
-    pdf.text('PLANTINES', this.MARGIN ,startY+4); //
 
     const headers = [['TIPO', 'PLANTAS/HA', 'CANTIDAD', '$ / UNIDAD', 'TOTAL']];
     const data = budget.seedlings.map(item => [
@@ -24,14 +23,6 @@ export class PdfSeedlingsService {
       item.quantity.toString(),
       formatCurrency(item.pricePerUnit),
       formatCurrency(item.total)
-    ]);
-
-    data.push([
-      'TOTAL PLANTINES',
-      '',
-      '',
-      '',
-      formatCurrency(budget.totalSeedlingsCost)
     ]);
 
     const seedlingsConfig = {

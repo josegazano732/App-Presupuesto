@@ -32,11 +32,9 @@
         </div>
         <div class="col-2">
           <input 
-            type="number" 
-            [(ngModel)]="item.precioUnitario"
-            placeholder="Precio"
+            [(ngModel)]="item.detalleProducto" 
+            placeholder="Detalle del Producto"
             class="form-control"
-            (change)="calcularTotal(i)"
           >
         </div>
         <div class="col-2">

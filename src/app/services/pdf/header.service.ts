@@ -8,10 +8,10 @@ import { formatDate } from '../../shared/utils/formatters.util';
   providedIn: 'root'
 })
 export class PdfHeaderService {
-  private readonly MARGIN = 14;
-  private readonly LOGO_WIDTH = 45;
-  private readonly LOGO_HEIGHT = 30;
-  private readonly TEXT_START_X = 78;
+  private readonly MARGIN = 14; 
+  private readonly LOGO_WIDTH = 35; // Ancho del logo
+  private readonly LOGO_HEIGHT = 25;  // Altura del logo
+  private readonly TEXT_START_X = 78;  // Posición X del texto
 
   constructor(
     private companyService: CompanyService,
@@ -25,13 +25,14 @@ export class PdfHeaderService {
     try {
       const logoData = await this.imageService.loadImage(companyInfo.logoUrl);
       if (logoData) {
+        // Logo cuadrado en el PDF
         pdf.addImage(
           logoData,
           'PNG',
           this.MARGIN,
           startY,
-          this.LOGO_WIDTH,
-          this.LOGO_HEIGHT
+          this.LOGO_WIDTH, // ancho del logo
+          this.LOGO_WIDTH // altura igual al ancho para cuadrado
         );
       }
     } catch (error) {

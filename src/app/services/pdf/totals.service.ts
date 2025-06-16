@@ -28,29 +28,6 @@ export class PdfTotalsService {
       currentY += (lines.length * 7) + 5; // Add space after observations
     }
 
-    // Add cost summaries
-
-    
-    pdf.setFontSize(8);
-    pdf.setFont('helvetica', 'bold');
-    pdf.setTextColor(100);
-    pdf.text('RESUMEN DE COSTOS', this.MARGIN, currentY );
-    
-    
-    pdf.setFontSize(8);
-    pdf.setTextColor(120);
-    pdf.setFont('helvetica', 'normal');
-
-    currentY += 5;
-    pdf.text(`Mano de Obra: ${formatCurrency(budget.totalLaborCost)}`, this.MARGIN, currentY);
-    currentY += 5;
-    pdf.text(`Maquinarias y Lubricantes: ${formatCurrency(budget.totalMachineryCost)}`, this.MARGIN, currentY);
-    currentY += 5;
-    pdf.text(`Total Plantines: ${formatCurrency(budget.totalSeedlingsCost)}`, this.MARGIN, currentY);
-    currentY += 5;
-    pdf.text(`Costo por Hectárea: ${formatCurrency(budget.totalCostPerHectare)}`, this.MARGIN, currentY);
-    currentY += 5;
-    pdf.setTextColor(100);
-    pdf.text(`TOTAL GENERAL: ${formatCurrency(budget.grandTotal)}`, this.MARGIN, currentY);
+    // Eliminar o comentar la generación del bloque de resumen de costos y totales.
   }
 }

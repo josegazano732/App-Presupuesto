@@ -1,6 +1,7 @@
 export interface Item {
-  descripcion: string;
+  detalleProducto: string;
   cantidad: number;
+  unidadMedida: string;
   precioUnitario: number;
   total: number;
 }

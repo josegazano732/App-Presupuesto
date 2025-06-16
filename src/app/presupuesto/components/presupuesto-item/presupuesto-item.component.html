@@ -1,38 +1,57 @@
 <div class="row g-2 mb-2 align-items-center">
-  <div class="col">
+  <div class="col-md-4">
     <input 
-      [(ngModel)]="item.descripcion"
+      [(ngModel)]="item.detalleProducto"
       placeholder="Descripción"
       class="form-control"
+      required
     >
   </div>
-  <div class="col-2">
+  <div class="col-md-2">
     <input 
       type="number" 
       [(ngModel)]="item.cantidad"
       placeholder="Cantidad"
       class="form-control"
+      min="1"
+      required
       (change)="actualizar.emit()"
     >
   </div>
-  <div class="col-2">
+  <div class="col-md-2">
+    <select [(ngModel)]="item.unidadMedida" class="form-control" required>
+      <option value="" disabled selected>Unidad de Medida</option>
+      <option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{unidad}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
     <input 
       type="number" 
       [(ngModel)]="item.precioUnitario"
-      placeholder="Precio"
+      placeholder="Precio Unitario"
       class="form-control"
+      min="0"
+      required
       (change)="actualizar.emit()"
     >
   </div>
-  <div class="col-2">
-    <span class="form-control bg-light">
-      {{item.total | number:'1.2-2'}}
-    </span>
+  <div class="col-md-2">
+    <input 
+      type="number" 
+      [(ngModel)]="item.total"
+      placeholder="Total"
+      class="form-control"
+      min="0"
+      required
+      (change)="actualizar.emit()"
+      readonly
+    >
   </div>
   <div class="col-auto">
     <button 
       (click)="eliminar.emit()"
       class="btn btn-danger"
+      type="button"
     >
       Eliminar
     </button>

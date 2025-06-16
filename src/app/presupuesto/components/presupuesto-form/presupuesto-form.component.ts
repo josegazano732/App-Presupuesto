@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Presupuesto } from '../../models/presupuesto.model';
+import { Item } from '../../models/item.model';
 import { PresupuestoService } from '../../services/presupuesto.service';
 
 @Component({
@@ -9,41 +10,42 @@ import { PresupuestoService } from '../../services/presupuesto.service';
 })
 export class PresupuestoFormComponent {
   presupuesto: Presupuesto = {
-    numero: new Date().getTime().toString(),
+    numero: new Date().getTime().toString(), // Generamos un número basado en timestamp
     fecha: new Date(),
     cliente: '',
     items: [],
     total: 0
   };
 
+  unidadesMedida: string[] = ['Unidad', 'Metro', 'Metro²', 'Metro³', 'Kg', 'Litro'];
+
   constructor(private presupuestoService: PresupuestoService) {}
 
   agregarItem(): void {
-    this.presupuesto.items.push({
-      descripcion: '',
+    const nuevoItem: Item = {
+      detalleProducto: '',
       cantidad: 1,
+      unidadMedida: 'Unidad',
       precioUnitario: 0,
       total: 0
-    });
+    };
+    this.presupuesto.items.push(nuevoItem);
   }
 
   eliminarItem(index: number): void {
     this.presupuesto.items.splice(index, 1);
-    this.actualizarTotal();
+    this.calcularTotal();
   }
 
-  calcularTotal(index: number): void {
-    const item = this.presupuesto.items[index];
-    item.total = this.presupuestoService.calcularTotalItem(item);
-    this.actualizarTotal();
-  }
-
-  private actualizarTotal(): void {
-    this.presupuesto.total = this.presupuestoService.calcularTotalPresupuesto(this.presupuesto.items);
+  calcularTotal(): void {
+    this.presupuesto.items.forEach(item => {
+      item.total = item.cantidad * item.precioUnitario;
+    });
+    this.presupuesto.total = this.presupuesto.items.reduce((sum, item) => sum + item.total, 0);
   }
 
   guardarPresupuesto(): void {
-    if (this.presupuestoService.validarPresupuesto(this.presupuesto)) {
+    if (this.presupuesto.items.length > 0 && this.presupuesto.cliente.trim()) {
       this.presupuestoService.guardarPresupuesto(this.presupuesto);
     }
   }

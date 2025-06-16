@@ -16,8 +16,8 @@
       <div class="row">
         <div class="col">
           <input 
-            [(ngModel)]="item.descripcion"
-            placeholder="Descripción"
+            [(ngModel)]="item.detalleProducto"
+            placeholder="Detalle del Producto"
             class="form-control"
           >
         </div>
@@ -27,22 +27,28 @@
             [(ngModel)]="item.cantidad"
             placeholder="Cantidad"
             class="form-control"
-            (change)="calcularTotal(i)"
+            min="1"
+            (change)="calcularTotal()"
           >
+        </div>
+        <div class="col-2">
+          <select 
+            [(ngModel)]="item.unidadMedida"
+            class="form-control"
+          >
+            <option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+              {{unidad}}
+            </option>
+          </select>
         </div>
         <div class="col-2">
           <input 
             type="number" 
-            [(ngModel)]="item.precioUnitario"
-            placeholder="Precio"
+            [(ngModel)]="item.total"
+            placeholder="Total"
             class="form-control"
-            (change)="calcularTotal(i)"
+            (change)="calcularTotal()"
           >
-        </div>
-        <div class="col-2">
-          <span class="form-control bg-light">
-            {{item.total | number:'1.2-2'}}
-          </span>
         </div>
         <div class="col-auto">
           <button 
