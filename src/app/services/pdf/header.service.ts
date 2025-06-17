@@ -48,8 +48,9 @@ export class PdfHeaderService {
     pdf.setTextColor(150);
     pdf.setFont('helvetica', 'normal');
     pdf.text(companyInfo.address, this.TEXT_START_X + 10, startY + 17);
-    pdf.text(companyInfo.phone, this.TEXT_START_X + 10, startY + 22);
-    pdf.text(companyInfo.email, this.TEXT_START_X + 10, startY + 27);
+    // Teléfono con texto 'Tel'
+    pdf.text('Tel: ' + companyInfo.phone, this.TEXT_START_X + 10, startY + 22);
+    pdf.text('Email: '+companyInfo.email, this.TEXT_START_X + 10, startY + 27);
 
     // Date - aligned to the right
     pdf.setFont('helvetica', 'italic');

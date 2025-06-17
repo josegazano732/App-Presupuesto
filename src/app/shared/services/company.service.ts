@@ -8,7 +8,7 @@ export class CompanyService {
   getCompanyInfo(): CompanyInfo {
     return {
       name: '',
-      address: 'Apostoles Misiones',
+      address: '',
       phone: '3765-374234',
       email: 'delcampoprodctosnaturales5@gmail.com',
       logoUrl: 'assets/images/logo.png'
