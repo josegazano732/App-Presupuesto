@@ -3,15 +3,15 @@
     <app-client-info [client]="budget.client"></app-client-info>
 
     <!-- Labor Costos -->
-    <h4>Detalle de presupuesto </h4>
-    
+    <h4>Nota de Pedido</h4>
+
     <!-- Mobile Vista -->
     <div class="mobile-view">
       <div *ngFor="let item of budget.laborCosts; let i = index" class="budget-item-card">
         <div class="form-group">
-          <label>Descripción</label>
+          <label>Producto</label>
           <div class="position-relative">
-            <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.descripcion" placeholder="Ingrese una descripción" required (input)="filtrarProductosPorIndice(i, item.descripcion)">
+            <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.descripcion" placeholder="Ingrese un producto" required (input)="filtrarProductosPorIndice(i, item.descripcion)">
             <ul *ngIf="productoFiltradoIndex === i && productoFiltrado.length > 0" class="list-group position-absolute w-100" style="z-index: 10;">
               <li *ngFor="let prod of productoFiltrado" class="list-group-item list-group-item-action" (click)="seleccionarProducto(item, prod)">
                 {{ prod }}
@@ -54,7 +54,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>DESCRIPCIÓN</th>
+            <th>PRODUCTO</th>
             <th>CANTIDAD</th>
             <th>UNIDAD DE MEDIDA</th>
             <th>PRECIO UNITARIO</th>
@@ -66,7 +66,7 @@
           <tr *ngFor="let item of budget.laborCosts; let i = index">
             <td>
               <div class="position-relative">
-                <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.descripcion" placeholder="Ingrese una descripción" required (input)="filtrarProductosPorIndice(i, item.descripcion)">
+                <input type="text" maxlength="30" class="form-control" [(ngModel)]="item.descripcion" placeholder="Ingrese un producto" required (input)="filtrarProductosPorIndice(i, item.descripcion)">
                 <ul *ngIf="productoFiltradoIndex === i && productoFiltrado.length > 0" class="list-group position-absolute w-100" style="z-index: 10;">
                   <li *ngFor="let prod of productoFiltrado" class="list-group-item list-group-item-action" (click)="seleccionarProducto(item, prod)">
                     {{ prod }}

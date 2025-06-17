@@ -18,14 +18,14 @@ export class BudgetFormComponent implements OnInit {
 
   // Lista de productos sugeridos para autocompletado en mano de obra
   productosSugeridos: string[] = [
-    'Tradicional Elaborada c/ palo GRUESA', 
-    'Tradicional Elaborada c/ palo MEDIA',
-    'Tradicional Elaborada c/ palo FINA', 
-    'Despalada GRUESA', 
-    'Despalada MEDIA',
-    'Despalada FINA',
-    'Canchada GRUESA', 
-    'Canchada MEDIA', 
+    'Yerba Mate tradicional elab. c/ palo GRUESA', 
+    'Yerba Mate tradicional elab. c/ palo MEDIA',
+    'Yerba Mate tradicional elab. c/ palo FINA', 
+    'Yerba Mate despalada GRUESA', 
+    'Yerba Mate despalada MEDIA',
+    'Yerba Mate despalada FINA',
+    'Yerba Mate canchada GRUESA', 
+    'Yerba Mate canchada MEDIA',
     'Flete en origen', 
     'Flete en destino'
     
