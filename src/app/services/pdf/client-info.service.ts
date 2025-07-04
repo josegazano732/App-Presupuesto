@@ -23,8 +23,9 @@ export class PdfClientInfoService {
     pdf.text(`Nombre: ${client.name}`, this.MARGIN, yStart);
     pdf.text(`Dirección: ${client.address}`, this.MARGIN, yStart + 5);
     pdf.text(`Teléfono: ${client.phone}`, this.MARGIN, yStart + 10);
-    pdf.text(`Email: ${client.email}`, this.MARGIN, yStart + 15);
+    pdf.text(`DNI: ${client.dni || ''}`, this.MARGIN, yStart + 15);
+    pdf.text(`Email: ${client.email}`, this.MARGIN, yStart + 20);
 
-    return yStart + 25;
+    return yStart + 30;
   }
 }

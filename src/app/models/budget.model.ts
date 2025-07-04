@@ -3,6 +3,7 @@ export interface Client {
   address: string;
   phone: string;
   email: string;
+  dni?: string; // Nuevo campo para DNI
 }
 
 export interface LaborCost {

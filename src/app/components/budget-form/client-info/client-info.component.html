@@ -18,10 +18,15 @@
         <label for="clientPhone" class="form-label">Teléfono:</label>
       </div>
       <div class="form-group">
+        <input type="text" id="clientDni" class="form-control" placeholder=" " aria-label="DNI del cliente"
+        [(ngModel)]="client.dni" name="dni" maxlength="11" pattern="[0-9]{7,11}" title="Ingrese solo números" (input)="validarNumerosYGuiones($event)">
+        <label for="clientDni" class="form-label">DNI:</label>
+      </div>
+      <div class="form-group">
         <input type="email" id="clientEmail" class="form-control" placeholder=" " aria-label="Email del cliente" [(ngModel)]="client.email" name="email" (input)="validateEmail()">
         <label for="clientEmail" class="form-label">Email:</label>
         <div id="emailError" class="alert" role="alert" [class.show]="showError">
-          <span class="alert-icon">⚠️</span> Ingrese un correo válido. Ejemplo: nombre@dominio.com
+          <span class="alert-icon">⚠️</span> Ingrese un correo válido. Ejemplo: nombre&#64;dominio.com
         </div>
       </div>
     </div>
